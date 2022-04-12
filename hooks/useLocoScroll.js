@@ -2,9 +2,8 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useEffect } from "react";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 
-function useLocoScroll(start) {
+function useLocoScroll() {
   useEffect(() => {
-    if (!start) return;
     let locoScroll = null;
     (async () => {
       try {
@@ -23,6 +22,32 @@ function useLocoScroll(start) {
             smooth: true,
           },
         });
+
+        locoScroll.on("scroll", ScrollTrigger.update);
+        ScrollTrigger.scrollerProxy(scrollContainer, {
+          scrollTop(value) {
+            return arguments.length
+              ? locoScroll.scrollTo(value, 0, 0)
+              : locoScroll.scroll.instance.scroll.y;
+          },
+          getBoundingClientRect() {
+            return {
+              top: 0,
+              left: 0,
+              width: window.innerWidth,
+              high: window.innerHeight,
+            };
+          },
+        });
+
+        const lsUpdate = () => {
+          if (locoScroll) {
+            locoScroll.update();
+          }
+        };
+        ScrollTrigger.addEventListener("refresh", lsUpdate);
+
+        ScrollTrigger.refresh();
       } catch (error) {
         throw Error(`[useLocoScroll]: ${error}`);
       }
@@ -33,7 +58,7 @@ function useLocoScroll(start) {
       locoScroll.destroy();
       ScrollTrigger.removeEventListener("refresh", lsUpdate);
     };
-  }, [start]);
+  }, []);
 }
 
 export default useLocoScroll;

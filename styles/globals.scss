@@ -1,9 +1,18 @@
+@import "./navbar";
+@import "./header";
+@import "./fonts";
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+body {
+  position: relative;
+  background-color: rgb(104, 116, 90);
 }
 
 a {
@@ -15,23 +24,17 @@ a {
   box-sizing: border-box;
 }
 
-section {
-  width: 100vw;
-  height: 100vh;
-  font-size: 15vw;
-  display: flex;
-  justify-content: center;
-  place-items: center;
-  &:nth-child(1) {
-    background-color: aquamarine;
-  }
-  &:nth-child(2) {
-    background-color: bisque;
-  }
-  &:nth-child(3) {
-    background-color: black;
-  }
-  &:nth-child(4) {
-    background-color: blue;
-  }
+//UTILTY CLASSES
+.section {
+  padding: 40px 30px;
+  width: 100%;
+  position: relative;
+}
+
+.max-w-container {
+  max-width: 1800px;
+  margin: 0 auto;
+}
+.chapter span {
+  opacity: 0.4;
 }
